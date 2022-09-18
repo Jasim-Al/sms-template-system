@@ -1,0 +1,9 @@
+{
+  "name": "sms-template-system",
+  "version": "1.0.0",
+  "description": "This is a sms templating service",
+  "main": "app.js",
+  "author": "Jasim",
+  "license": "MIT",
+  "private": true
+}
