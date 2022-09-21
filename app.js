@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/user-routes");
 const messageRoutes = require("./routes/message-routes");
+const urlRoutes = require("./routes/url-routes");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.get("/", (req, res, next) => {
 
 app.use("/api/users", userRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/url", urlRoutes);
 
 app.get("*", (req, res, next) => {
   res.send("404, Not found").status(404);

@@ -3,6 +3,7 @@ const { default: mongoose } = require("mongoose");
 
 const User = require("../models/user");
 const Message = require("../models/message");
+const getMessaage = require("../utils/getMessaage");
 
 const createMessage = async (req, res, next) => {
   const { title, message } = req.body;
@@ -147,13 +148,19 @@ const createNewMessage = async (req, res, next) => {
     return next(new Error("Invalid user"));
   }
 
-  let newMessage = message.toObject().message;
-
-  Object.keys(queries).forEach((query) => {
-    newMessage = newMessage.replace(`$${query}$`, queries[query]);
-  });
-
-  res.json({ message: newMessage, status: "success" }).status(200);
+  try {
+    getMessaage(message, queries, messageId).then(async (newMessage) => {
+      res.json({ message: newMessage, status: "success" }).status(200);
+    });
+  } catch (error) {
+    res
+      .json({
+        errorMessage: "Something went wrong, Could'nt create the Message.",
+        status: "error",
+      })
+      .status(500);
+    return next(new Error("Something Went Wrong."));
+  }
 };
 
 const getMessageById = async (req, res, next) => {
@@ -292,9 +299,7 @@ const updateMessage = async (req, res, next) => {
   const variables = messageNew.match(regex);
 
   let url =
-    "http://localhost:5000/api/messages/create/" +
-    message.toObject()._id +
-    "?";
+    "http://localhost:5000/api/messages/create/" + message.toObject()._id + "?";
 
   variables.forEach((variable) => {
     const text = variable.split("$")[1];
@@ -315,7 +320,7 @@ const updateMessage = async (req, res, next) => {
     return next(new Error("Something Went Wrong."));
   }
 
-  res.json({ message: message.toObject(),url, status: "success" }).status(200);
+  res.json({ message: message.toObject(), url, status: "success" }).status(200);
 };
 
 const deleteMessage = async (req, res, next) => {

@@ -10,6 +10,7 @@ const messageSchema = new Schema({
     required: true,
   },
   creator: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
+  url: [{ type: mongoose.Types.ObjectId, required: true, ref: "Url" }],
 });
 
 messageSchema.plugin(validator);

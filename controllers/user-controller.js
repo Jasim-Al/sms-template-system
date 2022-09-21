@@ -14,6 +14,7 @@ const signup = async (req, res, next) => {
 
   const createdUser = new User({
     apiKey: uuidv4(),
+
     email,
     password,
   });
