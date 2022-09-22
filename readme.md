@@ -106,6 +106,14 @@ response : {
   "status": "success"
 }
 
+if you pass a valid url as the variable it will aoutomatically shorten.
+
+eg-url : http://localhost:5000/api/messages/create/632bd89d8d69a52d682b0c9f?name=jasim&url=https://www.google.com&key=15c5707a-b349-4e7d-b00e-cac33193393f
+
+response : {"message":"Hello, jasim I would like to visit us sometimes at http://localhost:5000/url/2LXd1.","status":"success"}
+
+! after if you visit the url on the response "http://localhost:5000/url/2LXd1" you will be redirected to the url you provided in this case google.com
+
 ! IMPORTAND please replace curly braces otherwise it will also be added in the response.
 
 /****************/

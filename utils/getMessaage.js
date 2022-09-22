@@ -27,17 +27,14 @@ async function returnMessage(message, queries, messageId) {
         } catch (error) {
           throw new Error(error);
         }
-        console.log("if done");
         return await newMessage.replace(
           `$${key}$`,
           `http://localhost:5000/url/${url.key.toString()}`
         );
       }
       newMessage = await getMessaage();
-      console.log("if done : " + newMessage);
     } else {
       newMessage = await newMessage.replace(`$${key}$`, queries[key]);
-      console.log("else done : " + newMessage);
     }
   }
   return newMessage;
